@@ -1,9 +1,12 @@
-import express, { Request, Response } from "express";
+import "reflect-metadata";
+import express from "express";
+
 import "./database";
+import routes from "./routes";
 
 const app = express();
 
 app.use(express.json());
-app.get("", (req: Request, res: Response) => res.json({ msg: "ola" }));
+app.use(routes);
 
 app.listen(3333);
