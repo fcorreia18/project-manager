@@ -1,10 +1,8 @@
-import express from "express";
-import "./database";
+import express, { Request, Response } from "express";
 
 const app = express();
 
 app.use(express.json());
-
-app.get("/", (req, res) => res.json({ message: "im here!" }));
+app.get("", (req: Request, res: Response) => res.json({ msg: "ola" }));
 
 app.listen(3333);
