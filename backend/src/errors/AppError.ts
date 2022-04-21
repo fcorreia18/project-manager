@@ -1,5 +1,3 @@
-import { string } from "yup";
-
 class AppError {
     public readonly message: string;
     public readonly statusCode: number;

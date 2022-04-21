@@ -1,5 +1,6 @@
 import { hash } from "bcryptjs";
 
+import AppError from "../errors/AppError";
 import IUserRepository from "../repositories/IUserRepository";
 import UserRepository from "../repositories/UserRepository";
 
@@ -17,6 +18,7 @@ class SessionService {
     public async execute({ email, password }: IRequest): Promise<null> {
         const user = await this.userRepository.findByEmail(email);
         if (!user) {
+            throw new AppError("Credenciais inválidas", 401);
         }
         return null;
     }
