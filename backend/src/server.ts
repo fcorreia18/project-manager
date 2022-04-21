@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import express, { Response, NextFunction, Request, response } from "express";
 
+import "./config/env";
 import "./database";
 import AppError from "./errors/AppError";
 import routes from "./routes";

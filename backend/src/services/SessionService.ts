@@ -1,4 +1,5 @@
-import { hash } from "bcryptjs";
+import { compare, hash } from "bcryptjs";
+import { sign } from "jsonwebtoken";
 
 import AppError from "../errors/AppError";
 import IUserRepository from "../repositories/IUserRepository";
@@ -15,12 +16,26 @@ class SessionService {
         this.userRepository = userRepository;
     }
 
-    public async execute({ email, password }: IRequest): Promise<null> {
+    public async execute({ email, password }: IRequest): Promise<Response> {
         const user = await this.userRepository.findByEmail(email);
         if (!user) {
             throw new AppError("Credenciais inválidas", 401);
         }
-        return null;
+        const passwordCompare = await compare(password, user.password);
+        if (!passwordCompare) {
+            throw new AppError("Credenciais invalidas", 401);
+        }
+        const token = sign(
+            user.id.toString(),
+            "2088AWDJKLSJlhasp8q9023wjalALSKDJ",
+            {
+                expiresIn: "id",
+            }
+        );
+        return {
+            token,
+            user,
+        };
     }
 }
 
