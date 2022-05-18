@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 import UserRepository from "../repositories/UserRepository";
 import CreateUserService from "../services/CreateUserService";
+import EnableUserService from "../services/EnableUserService";
 
 class UserController {
     public async create(
@@ -14,6 +15,14 @@ class UserController {
 
         const user = await createUser.execute({ name, email, password });
         return response.json(user);
+    }
+
+    async enable(request: Request, response: Response): Promise<Response> {
+        const { id } = request.params;
+        const userRepository = new UserRepository();
+        const enableUser = new EnableUserService(userRepository);
+        const user = enableUser.execute(+id);
+        return response.status(200).json(user);
     }
 }
 
