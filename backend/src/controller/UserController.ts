@@ -7,7 +7,7 @@ import EnableUserService from "../services/EnableUserService";
 class UserController {
     async getUsers(request: Request, response: Response): Promise<Response> {
         const userRepository = new UserRepository();
-        const user = userRepository.findAll();
+        const user = await userRepository.findAll();
         return response.status(200).json(user);
     }
     public async create(
