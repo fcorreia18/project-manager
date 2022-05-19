@@ -26,7 +26,6 @@ export default class UpdateUserService {
             email,
             password: passwordHash,
         });
-        console.log(saveUser);
         await this.userRepository.save(saveUser);
         return saveUser;
     }
