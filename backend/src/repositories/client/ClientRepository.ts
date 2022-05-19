@@ -33,4 +33,8 @@ export default class ClientRepository implements IClientRepository {
         await this.ormRepository.save(client);
         return client;
     }
+
+    async save(client: Client): Promise<Client> {
+        return this.ormRepository.save(client);
+    }
 }
