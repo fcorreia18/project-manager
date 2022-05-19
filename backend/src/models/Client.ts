@@ -22,6 +22,8 @@ export default class Client {
 
     @Column({ unique: true })
     bi: string;
+    @Column()
+    code: string;
 
     @CreateDateColumn()
     created_at: Date;
