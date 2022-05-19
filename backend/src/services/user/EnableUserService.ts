@@ -1,7 +1,7 @@
-import AppError from "../errors/AppError";
-import User from "../models/User";
-import IUserRepository from "../repositories/IUserRepository";
-import UserRepository from "../repositories/UserRepository";
+import AppError from "../../errors/AppError";
+import User from "../../models/User";
+import IUserRepository from "../../repositories/IUserRepository";
+import UserRepository from "../../repositories/UserRepository";
 
 export default class EnableUserService {
     private userRepository: IUserRepository;

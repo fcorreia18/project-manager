@@ -1,4 +1,4 @@
-import { compare, hash } from "bcryptjs";
+import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 
 import AppError from "../errors/AppError";
