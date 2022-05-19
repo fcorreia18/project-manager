@@ -2,12 +2,17 @@ import { compare, hash } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 
 import AppError from "../errors/AppError";
+import User from "../models/User";
 import IUserRepository from "../repositories/IUserRepository";
 import UserRepository from "../repositories/UserRepository";
 
 interface IRequest {
     email: string;
     password: string;
+}
+interface IResponse {
+    token: string;
+    user: User;
 }
 class SessionService {
     private userRepository: IUserRepository;
@@ -16,7 +21,7 @@ class SessionService {
         this.userRepository = userRepository;
     }
 
-    public async execute({ email, password }: IRequest): Promise<Response> {
+    public async execute({ email, password }: IRequest): Promise<IResponse> {
         const user = await this.userRepository.findByEmail(email);
         if (!user) {
             throw new AppError("Credenciais inválidas", 401);
