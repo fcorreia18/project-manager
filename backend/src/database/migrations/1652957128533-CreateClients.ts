@@ -50,5 +50,7 @@ export class CreateClients1652957128533 implements MigrationInterface {
         );
     }
 
-    public async down(queryRunner: QueryRunner): Promise<void> {}
+    public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.dropTable("clients");
+    }
 }
