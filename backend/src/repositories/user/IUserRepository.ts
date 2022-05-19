@@ -1,5 +1,5 @@
-import ICreateUserDTO from "../dtos/ICreateUserDTO";
-import User from "../models/User";
+import ICreateUserDTO from "../../dtos/ICreateUserDTO";
+import User from "../../models/User";
 
 export default interface IUserRepository {
     findAll(): Promise<User[]>;
