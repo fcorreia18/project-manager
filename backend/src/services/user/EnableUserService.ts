@@ -10,13 +10,12 @@ export default class EnableUserService {
     }
 
     async execute(id: number): Promise<User> {
-        const findUser = await this.userRepository.findById(id);
-        if (!findUser) {
+        const user = await this.userRepository.findById(id);
+        if (!user) {
             throw new AppError("usuário não encontrado", 400);
         }
-        findUser.active = !findUser.active;
-        const user = this.userRepository.create(findUser);
-
+        user.active = !user.active;
+        await this.userRepository.save(user);
         return user;
     }
 }

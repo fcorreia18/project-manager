@@ -7,8 +7,8 @@ import EnableUserService from "../services/EnableUserService";
 class UserController {
     async getUsers(request: Request, response: Response): Promise<Response> {
         const userRepository = new UserRepository();
-        const user = await userRepository.findAll();
-        return response.status(200).json(user);
+        const users = await userRepository.findAll();
+        return response.status(200).json(users);
     }
     public async create(
         request: Request,
@@ -26,7 +26,7 @@ class UserController {
         const { id } = request.params;
         const userRepository = new UserRepository();
         const enableUser = new EnableUserService(userRepository);
-        const user = enableUser.execute(+id);
+        const user = await enableUser.execute(+id);
         return response.status(200).json(user);
     }
 }
