@@ -4,6 +4,7 @@ import UserRepository from "../repositories/UserRepository";
 import SessionService from "../services/SessionService";
 import CreateUserService from "../services/user/CreateUserService";
 import EnableUserService from "../services/user/EnableUserService";
+import UpdateUserService from "../services/user/UpdateUserService";
 
 class UserController {
     async getUsers(request: Request, response: Response): Promise<Response> {
@@ -38,6 +39,16 @@ class UserController {
         const session = await sessionService.execute({ email, password });
 
         return response.status(200).json(session);
+    }
+
+    async update(request: Request, response: Response): Promise<Response> {
+        const { id } = request.params;
+        const { name, email, password } = request.body;
+        const userRepository = new UserRepository();
+        const updateUser = new UpdateUserService(userRepository);
+        const user = await updateUser.execute(+id, { name, email, password });
+
+        return response.status(200).json(user);
     }
 }
 

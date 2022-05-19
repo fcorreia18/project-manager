@@ -15,6 +15,7 @@ export default class EnableUserService {
             throw new AppError("usuário não encontrado", 400);
         }
         user.active = !user.active;
+        delete user.password;
         await this.userRepository.save(user);
         return user;
     }

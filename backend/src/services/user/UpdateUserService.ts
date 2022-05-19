@@ -16,6 +16,7 @@ export default class UpdateUserService {
             throw new AppError("usuário não encontrado", 404);
         }
         const saveUser = Object.assign(findUser, user);
+        console.log(saveUser);
         await this.userRepository.save(saveUser);
         return saveUser;
     }
