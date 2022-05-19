@@ -1,3 +1,5 @@
+import { hash } from "bcryptjs";
+
 import ICreateUserDTO from "../../dtos/ICreateUserDTO";
 import AppError from "../../errors/AppError";
 import User from "../../models/User";
@@ -10,12 +12,20 @@ export default class UpdateUserService {
         this.userRepository = userRepository;
     }
 
-    async execute(id: number, user: ICreateUserDTO): Promise<User> {
+    async execute(
+        id: number,
+        { name, email, password }: ICreateUserDTO
+    ): Promise<User> {
         const findUser = await this.userRepository.findById(id);
+        const passwordHash = await hash(password, 8);
         if (!findUser) {
             throw new AppError("usuário não encontrado", 404);
         }
-        const saveUser = Object.assign(findUser, user);
+        const saveUser = Object.assign(findUser, {
+            name,
+            email,
+            password: passwordHash,
+        });
         console.log(saveUser);
         await this.userRepository.save(saveUser);
         return saveUser;
