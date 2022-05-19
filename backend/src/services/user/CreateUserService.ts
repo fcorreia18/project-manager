@@ -1,7 +1,8 @@
 import { hash } from "bcryptjs";
 
-import IUserRepository from "../repositories/IUserRepository";
-import UserRepository from "../repositories/UserRepository";
+import AppError from "../../errors/AppError";
+import IUserRepository from "../../repositories/IUserRepository";
+import UserRepository from "../../repositories/UserRepository";
 
 interface IRequest {
     name: string;
@@ -17,11 +18,16 @@ class CreateUserService {
 
     public async execute({ name, email, password }: IRequest) {
         const passwordHash = await hash(password, 8);
-        const user = this.userRepository.create({
+        const findEmail = await this.userRepository.findByEmail(email);
+        if (findEmail) {
+            throw new AppError("Email já está em uso", 400);
+        }
+        const user = await this.userRepository.create({
             name,
             email,
             password: passwordHash,
         });
+        delete user.password;
         return user;
     }
 }
