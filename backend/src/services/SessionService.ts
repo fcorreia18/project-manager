@@ -26,13 +26,17 @@ class SessionService {
         if (!user) {
             throw new AppError("Credenciais inválidas", 401);
         }
-        const passwordCompare = await compare(password, user.password);
+        const passwordCompare = await compare(
+            password,
+            user.password as string
+        );
         if (!passwordCompare) {
             throw new AppError("Credenciais invalidas", 401);
         }
         const token = sign({}, process.env.APP_SECRET as string, {
             expiresIn: "1d",
         });
+        delete user.password;
         return {
             token,
             user,

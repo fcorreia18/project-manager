@@ -35,7 +35,7 @@ class UserController {
         const { email, password } = request.body;
         const userRepository = new UserRepository();
         const sessionService = new SessionService(userRepository);
-        const session = sessionService.execute({ email, password });
+        const session = await sessionService.execute({ email, password });
 
         return response.status(200).json(session);
     }
