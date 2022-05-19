@@ -30,13 +30,9 @@ class SessionService {
         if (!passwordCompare) {
             throw new AppError("Credenciais invalidas", 401);
         }
-        const token = sign(
-            user.id.toString(),
-            "2088AWDJKLSJlhasp8q9023wjalALSKDJ",
-            {
-                expiresIn: "id",
-            }
-        );
+        const token = sign({}, process.env.APP_SECRET as string, {
+            expiresIn: "1d",
+        });
         return {
             token,
             user,
