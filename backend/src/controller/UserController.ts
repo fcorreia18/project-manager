@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import UserRepository from "../repositories/UserRepository";
+import UserRepository from "../repositories/user/UserRepository";
 import SessionService from "../services/SessionService";
 import CreateUserService from "../services/user/CreateUserService";
 import EnableUserService from "../services/user/EnableUserService";

@@ -3,8 +3,8 @@ import { hash } from "bcryptjs";
 import ICreateUserDTO from "../../dtos/ICreateUserDTO";
 import AppError from "../../errors/AppError";
 import User from "../../models/User";
-import IUserRepository from "../../repositories/IUserRepository";
-import UserRepository from "../../repositories/UserRepository";
+import IUserRepository from "../../repositories/user/IUserRepository";
+import UserRepository from "../../repositories/user/UserRepository";
 
 export default class UpdateUserService {
     private userRepository: IUserRepository;

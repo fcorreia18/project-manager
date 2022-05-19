@@ -1,8 +1,8 @@
 import { hash } from "bcryptjs";
 
 import AppError from "../../errors/AppError";
-import IUserRepository from "../../repositories/IUserRepository";
-import UserRepository from "../../repositories/UserRepository";
+import IUserRepository from "../../repositories/user/IUserRepository";
+import UserRepository from "../../repositories/user/UserRepository";
 
 interface IRequest {
     name: string;
