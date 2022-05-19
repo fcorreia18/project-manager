@@ -12,4 +12,7 @@ export default class ClientRepository implements IClientRepository {
     async findAll(): Promise<Client[]> {
         return this.ormRepository.find();
     }
+    async findById(id: number): Promise<Client | undefined> {
+        return this.ormRepository.findOne(id);
+    }
 }
