@@ -17,11 +17,12 @@ class CreateUserService {
 
     public async execute({ name, email, password }: IRequest) {
         const passwordHash = await hash(password, 8);
-        const user = this.userRepository.create({
+        const user = await this.userRepository.create({
             name,
             email,
             password: passwordHash,
         });
+        delete user.password;
         return user;
     }
 }
